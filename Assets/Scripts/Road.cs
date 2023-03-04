@@ -6,7 +6,7 @@ public class Road : MonoBehaviour
 {
     [SerializeField] private RoadBlock blockPrefab;
     [SerializeField] private int blockCount;
-   // private List<RoadBlock> blocks = new List<RoadBlock>();
+
     private Queue<RoadBlock> activeBlockStack = new Queue<RoadBlock>();
     private Vector3 spawnPos = Vector3.zero;
     private float lastBlockLength = 0f; 
@@ -28,7 +28,6 @@ public class Road : MonoBehaviour
             SpawnBlock();
             RemoveBlock();
         }
-     //   transform.position = previousChunk.End.position - Begin.localPosition;
     }
     public void RemoveBlock()
     {

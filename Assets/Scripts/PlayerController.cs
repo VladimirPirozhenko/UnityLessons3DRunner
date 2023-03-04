@@ -16,10 +16,38 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int desiredLane;
     float verticalMovement = -1;
     private Vector3 resultMovementDelta;
+
+    [SerializeField] private HudView hud;
+    private int score;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         desiredLane = (int)laneCount / 2;
+        score = 0;  
+    }
+    private void OnEnable()
+    {
+        Coin.OnCoinCollected += AddScore;
+    }
+
+    private void OnDisable()
+    {
+        Coin.OnCoinCollected -= AddScore;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out ICollectable collectable)) 
+        {
+            collectable.Collect();
+        }
+    }
+
+    public void AddScore(int value)
+    {
+        score+=value;
+        hud.UpdateScore(score);
+        //ViewManager.instance.getView<HudView>();
     }
 
     public void Jump()
